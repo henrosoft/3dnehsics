@@ -7,7 +7,6 @@ package dnehsics;
 
 import com.sun.j3d.utils.applet.MainFrame;
 import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
-import com.sun.j3d.utils.geometry.Box;
 import com.sun.j3d.utils.geometry.ColorCube;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.universe.ViewingPlatform;
@@ -36,7 +35,8 @@ import javax.vecmath.Vector3f;
  *
  * @author henry
  */
-public class Main extends Applet{
+public class Main extends Applet {
+	public static final long serialVersionUID = 293841832419834234L;
     private static BoundingSphere myBounds = new BoundingSphere();
     private LinkedList<Body> bodies = new LinkedList<Body>();
     public Main() {
@@ -67,15 +67,14 @@ public class Main extends Applet{
         BranchGroup objRoot = new BranchGroup();
 
       //  objRoot.addChild(new ColorCube(.4f));
-        Body b = new Body(new Vector3f(0,0,0), new Vector3f(.003f,0,0),.02f,1,objRoot,bodies);
-        b = new Body(new Vector3f(0,0,0), new Vector3f(.0f,.003f,0),.02f,1,objRoot,bodies);
-        b = new Body(new Vector3f(0,0,0), new Vector3f(0,0,.003f),.02f,1,objRoot,bodies);
-        b = new Body(new Vector3f(.2f,.2f,.3f), new Vector3f(.002f,.00f,.002f),.02f,1,objRoot,bodies);
-        b = new Body(new Vector3f(.2f,.2f,.2f), new Vector3f(.005f,.001f,.004f),.02f,1,objRoot,bodies);
-        b = new Body(new Vector3f(.2f,.2f,.1f), new Vector3f(.001f,.002f,.003f),.02f,1,objRoot,bodies);
-        b = new Body(new Vector3f(.3f,.1f,.1f), new Vector3f(.00f,.006f,.001f),.02f,1,objRoot,bodies);
+        new Body(new Vector3f(0,0,0), new Vector3f(.003f,0,0),.02f,1,objRoot,bodies);
+        new Body(new Vector3f(0,0,0), new Vector3f(.0f,.003f,0),.02f,1,objRoot,bodies);
+        new Body(new Vector3f(0,0,0), new Vector3f(0,0,.003f),.02f,1,objRoot,bodies);
+        new Body(new Vector3f(.2f,.2f,.3f), new Vector3f(.002f,.00f,.002f),.02f,1,objRoot,bodies);
+        new Body(new Vector3f(.2f,.2f,.2f), new Vector3f(.005f,.001f,.004f),.02f,1,objRoot,bodies);
+        new Body(new Vector3f(.2f,.2f,.1f), new Vector3f(.001f,.002f,.003f),.02f,1,objRoot,bodies);
+        new Body(new Vector3f(.3f,.1f,.1f), new Vector3f(.00f,.006f,.001f),.02f,1,objRoot,bodies);
       //  objRoot.addChild(new ColorCube(.5f));
-        BranchGroup bg = new BranchGroup();
         Appearance a = new Appearance();
         a.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.NICEST,.70f));
         PolygonAttributes pa = new PolygonAttributes();
@@ -190,7 +189,7 @@ public class Main extends Applet{
         }
 
     public static void main(String[] args) {
-         MainFrame frame = new MainFrame(new Main(), 800, 800);
+         new MainFrame(new Main(), 800, 800);
     }
 
 }

@@ -1,0 +1,12 @@
+*.class
+*.jar
+.hidden
+.classpath
+.project
+dist
+build
+*.html
+*.jar
+\#*#
+*~
+*.DS_Store
