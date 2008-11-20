@@ -54,16 +54,65 @@ public class Body implements Runnable{
         while(iter.hasNext())
         {
             Body b = iter.next();
-            System.out.println(position + " " + b.position);
+         //   System.out.println(position + " " + b.position);
             Vector3f p = (Vector3f) position.clone();
-            System.out.println(position + " " + b.position + " " + p);
+         //   System.out.println(position + " " + b.position + " " + p);
             p.sub(b.position);
-            System.out.println(position + " " + b.position + " " + p);
+         //   System.out.println(position + " " + b.position + " " + p);
+          //  float forceMagnitude = charge*b.charge/p.length();
+            System.out.println(p.length());
+            Vector3f force = new Vector3f(charge*b.charge*(10E-8f*p.x*Math.abs(p.x)/(p.length())),
+                                        charge*b.charge*(10E-8f*p.y*Math.abs(p.y)/(p.length())),
+                                        charge*b.charge*(10E-8f*p.z*Math.abs(p.z)/(p.length())));
+            force = new Vector3f(charge*b.charge/(10E-9f*p.x*Math.abs(p.x)),
+                                        charge*b.charge/(10E-9f*p.y*Math.abs(p.y)),
+                                        charge*b.charge/(10E-9f*p.z*Math.abs(p.z)));
+            float max = 1E-5f;
+            if(force.x>max)
+                force.x = max;
+            if(force.x<-max)
+                force.x = -max;
+             if(force.y>max)
+                force.y = max;
+            if(force.y<-max)
+                force.y = -max;
+            if(force.z>max)
+                force.z = max;
+            if(force.z<-max)
+                force.z = -max;
+         //   System.out.println(force);
+            velocity.add(force);
+        }
+    }
+    public void applyForceOld()
+    {
+        Iterator<Body> iter = bodies.iterator();
+        while(iter.hasNext())
+        {
+            Body b = iter.next();
+         //   System.out.println(position + " " + b.position);
+            Vector3f p = (Vector3f) position.clone();
+         //   System.out.println(position + " " + b.position + " " + p);
+            p.sub(b.position);
+         //   System.out.println(position + " " + b.position + " " + p);
             
-            Vector3f force = new Vector3f(charge*b.charge/(p.x*Math.abs(p.x)),
-                                        charge*b.charge/(p.y*Math.abs(p.y)),
-                                        charge*b.charge/(p.z*Math.abs(p.z)));
-          //  System.out.println(b.position + " " + position);
+            Vector3f force = new Vector3f(charge*b.charge/(10E-7f*p.x*Math.abs(p.x)),
+                                        charge*b.charge/(10E-7f*p.y*Math.abs(p.y)),
+                                        charge*b.charge/(10E-7f*p.z*Math.abs(p.z)));
+            float max = 1E-5f;
+            if(force.x>max)
+                force.x = max;
+            if(force.x<-max)
+                force.x = -max;
+             if(force.y>max)
+                force.y = max;
+            if(force.y<-max)
+                force.y = -max;
+            if(force.z>max)
+                force.z = max;
+            if(force.z<-max)
+                force.z = -max;
+         //   System.out.println(force);
             velocity.add(force);
         }
     }
@@ -83,7 +132,7 @@ public class Body implements Runnable{
                 velocity.y = -velocity.y;
             if(Math.abs(position.z)>.5)
                 velocity.z = -velocity.z;
-        //   applyForce();
+           applyForce();
             t3d.setTranslation(position);
             group.setTransform(t3d);
         }
