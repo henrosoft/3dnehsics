@@ -67,8 +67,8 @@ public class Main extends Applet {
         BranchGroup objRoot = new BranchGroup();
 
       //  objRoot.addChild(new ColorCube(.4f));
-        new Body(new Vector3f(0,0,.3f), new Vector3f(.0f,0,0),.02f,1,objRoot,bodies);
-        new Body(new Vector3f(0,0,0-.3f), new Vector3f(.0f,.00f,0),.02f,1,objRoot,bodies);
+        new Body(new Vector3f(0,0.01f,.3f), new Vector3f(.0f,0,-.0003f),.02f,.1f,objRoot,bodies);
+        new Body(new Vector3f(0,-.01f,-.3f), new Vector3f(.0f,.00f,.0003f),.02f,.1f,objRoot,bodies);
      //   new Body(new Vector3f(0,0,0), new Vector3f(0,0,.003f),.02f,1,objRoot,bodies);
       /*  new Body(new Vector3f(0,0,0), new Vector3f(.003f,0,0),.02f,1,objRoot,bodies);
         new Body(new Vector3f(0,0,0), new Vector3f(.0f,.003f,0),.02f,1,objRoot,bodies);
@@ -88,8 +88,7 @@ public class Main extends Applet {
         objRoot.addChild(s);
         objRoot.addChild(lightScene());
         objRoot.addChild(createAxis());
-   //     objRoot.addChild(drawHelix());
-     //   objRoot.addChild(makeReverseSurface());
+
         return objRoot;
     } // end of CreateSceneGraph method of HelloJava3Da
 

@@ -18,6 +18,7 @@ import javax.vecmath.Vector3f;
  * @author henry
  */
 public class Body implements Runnable{
+    public static final double k = 0;
     protected Vector3f position;
     protected Vector3f velocity;
     protected float radius;
@@ -54,66 +55,16 @@ public class Body implements Runnable{
         while(iter.hasNext())
         {
             Body b = iter.next();
-         //   System.out.println(position + " " + b.position);
+            if(b!=this)
+            {
             Vector3f p = (Vector3f) position.clone();
-         //   System.out.println(position + " " + b.position + " " + p);
             p.sub(b.position);
-         //   System.out.println(position + " " + b.position + " " + p);
-          //  float forceMagnitude = charge*b.charge/p.length();
-            System.out.println(p.length());
-            Vector3f force = new Vector3f(charge*b.charge*(10E-8f*p.x*Math.abs(p.x)/(p.length())),
-                                        charge*b.charge*(10E-8f*p.y*Math.abs(p.y)/(p.length())),
-                                        charge*b.charge*(10E-8f*p.z*Math.abs(p.z)/(p.length())));
-            force = new Vector3f(charge*b.charge/(10E-9f*p.x*Math.abs(p.x)),
-                                        charge*b.charge/(10E-9f*p.y*Math.abs(p.y)),
-                                        charge*b.charge/(10E-9f*p.z*Math.abs(p.z)));
-            float max = 1E-5f;
-            if(force.x>max)
-                force.x = max;
-            if(force.x<-max)
-                force.x = -max;
-             if(force.y>max)
-                force.y = max;
-            if(force.y<-max)
-                force.y = -max;
-            if(force.z>max)
-                force.z = max;
-            if(force.z<-max)
-                force.z = -max;
-         //   System.out.println(force);
+            float n = (float) (-charge * b.charge *10E-11/ Math.pow(p.length(), 3));
+            Vector3f force = new Vector3f((float)(charge*b.charge*10E-7*p.x/Math.pow(p.length(),3)),
+                                        (float)(charge*b.charge*10E-7*p.y/Math.pow(p.length(),3)),
+                                        (float)(charge*b.charge*10E-7*p.z/Math.pow(p.length(),3)));
             velocity.add(force);
-        }
-    }
-    public void applyForceOld()
-    {
-        Iterator<Body> iter = bodies.iterator();
-        while(iter.hasNext())
-        {
-            Body b = iter.next();
-         //   System.out.println(position + " " + b.position);
-            Vector3f p = (Vector3f) position.clone();
-         //   System.out.println(position + " " + b.position + " " + p);
-            p.sub(b.position);
-         //   System.out.println(position + " " + b.position + " " + p);
-            
-            Vector3f force = new Vector3f(charge*b.charge/(10E-7f*p.x*Math.abs(p.x)),
-                                        charge*b.charge/(10E-7f*p.y*Math.abs(p.y)),
-                                        charge*b.charge/(10E-7f*p.z*Math.abs(p.z)));
-            float max = 1E-5f;
-            if(force.x>max)
-                force.x = max;
-            if(force.x<-max)
-                force.x = -max;
-             if(force.y>max)
-                force.y = max;
-            if(force.y<-max)
-                force.y = -max;
-            if(force.z>max)
-                force.z = max;
-            if(force.z<-max)
-                force.z = -max;
-         //   System.out.println(force);
-            velocity.add(force);
+            }
         }
     }
     public void run() {
@@ -124,7 +75,6 @@ public class Body implements Runnable{
             {
                 e.printStackTrace();
             }
-         //   System.out.println(position);
             position.add(velocity);
             if(Math.abs(position.x)>.5)
                 velocity.x = -velocity.x;
