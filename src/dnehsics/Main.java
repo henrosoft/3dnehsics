@@ -66,18 +66,16 @@ public class Main extends Applet {
         // Create the root of the branch graph
         BranchGroup objRoot = new BranchGroup();
 
-      //  objRoot.addChild(new ColorCube(.4f));
-        new Body(new Vector3f(0,0.01f,.3f), new Vector3f(.0f,0,-.0003f),.02f,(float)Body.ELECTRON_CHARGE*1E10f,objRoot,bodies);
-        new Body(new Vector3f(0,-.01f,-.3f), new Vector3f(.0f,.00f,.0003f),.02f,(float)Body.ELECTRON_CHARGE*1E10f,objRoot,bodies);
-     //   new Body(new Vector3f(0,0,0), new Vector3f(0,0,.003f),.02f,1,objRoot,bodies);
-      /*  new Body(new Vector3f(0,0,0), new Vector3f(.003f,0,0),.02f,1,objRoot,bodies);
-        new Body(new Vector3f(0,0,0), new Vector3f(.0f,.003f,0),.02f,1,objRoot,bodies);
-        new Body(new Vector3f(0,0,0), new Vector3f(0,0,.003f),.02f,1,objRoot,bodies);
-        new Body(new Vector3f(.2f,.2f,.3f), new Vector3f(.002f,.00f,.002f),.02f,1,objRoot,bodies);
-        new Body(new Vector3f(.2f,.2f,.2f), new Vector3f(.005f,.001f,.004f),.02f,1,objRoot,bodies);
-        new Body(new Vector3f(.2f,.2f,.1f), new Vector3f(.001f,.002f,.003f),.02f,1,objRoot,bodies);
-        new Body(new Vector3f(.3f,.1f,.1f), new Vector3f(.00f,.006f,.001f),.02f,1,objRoot,bodies);*/
-      //  objRoot.addChild(new ColorCube(.5f));
+       /* new Body(new Vector3f(0,0.01f,.3f), new Vector3f(.0f,0,-.0003f),.02f,(float)Body.ELECTRON_CHARGE*1E10f,objRoot,bodies);
+        new Body(new Vector3f(0,-.01f,-.3f), new Vector3f(.0f,.00f,.0003f),.02f,(float)Body.ELECTRON_CHARGE*1E10f,objRoot,bodies);*/
+        
+        new Atom(new Vector3f(0,0.01f,.3f), new Vector3f(.0f,0,-.0003f),.02f,2,1,objRoot,bodies);
+        new Atom(new Vector3f(0,-.01f,-.3f), new Vector3f(.0f,.00f,.0003f),.02f,0,1,objRoot,bodies);
+        
+     /*   for(double i = -.3; i<=.3; i+=.05)
+            new Atom(new Vector3f(0,0.01f,.3f), new Vector3f(.0f,0,-.0003f),.02f,2,1,objRoot,bodies);
+        new Atom(new Vector3f(0,-.01f,-.3f), new Vector3f(.0f,.00f,.0003f),.02f,0,1,objRoot,bodies);*/
+
         Appearance a = new Appearance();
         a.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.NICEST,.70f));
         PolygonAttributes pa = new PolygonAttributes();

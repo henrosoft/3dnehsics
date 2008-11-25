@@ -18,7 +18,7 @@ import javax.vecmath.Vector3f;
  * @author henry
  */
 public class Body implements Runnable{
-    public static final double K = 8.987551787E9;
+    public static final double K = 8.987551787E29;//supposed to be E9
     public static final double ELECTRON_CHARGE = -1.602176487E-19;
     public static final double PROTON_CHARGE = 1.602176487E-19;
     protected Vector3f position;
@@ -51,6 +51,10 @@ public class Body implements Runnable{
     {
         return group;
     }
+    public float getCharge(double d)
+    {
+        return charge;
+    }
     public void applyForce()
     {
         Iterator<Body> iter = bodies.iterator();
@@ -61,9 +65,9 @@ public class Body implements Runnable{
             {
             Vector3f p = (Vector3f) position.clone();
             p.sub(b.position);
-            Vector3f force = new Vector3f((float)(charge*b.charge*K*p.x/Math.pow(p.length(),3)),
-                                        (float)(charge*b.charge*K*p.y/Math.pow(p.length(),3)),
-                                        (float)(charge*b.charge*K*p.z/Math.pow(p.length(),3)));
+            Vector3f force = new Vector3f((float)(getCharge(p.length())*b.getCharge(p.length())*K*p.x/Math.pow(p.length(),3)),
+                                        (float)(getCharge(p.length())*b.getCharge(p.length())*K*p.y/Math.pow(p.length(),3)),
+                                        (float)(getCharge(p.length())*b.getCharge(p.length())*K*p.z/Math.pow(p.length(),3)));
             velocity.add(force);
             }
         }
