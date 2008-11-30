@@ -8,9 +8,13 @@ package dnehsics;
 import com.sun.j3d.utils.geometry.Sphere;
 import java.util.Iterator;
 import java.util.LinkedList;
+import javax.media.j3d.Appearance;
 import javax.media.j3d.BranchGroup;
+import javax.media.j3d.ColoringAttributes;
+import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+import javax.vecmath.Color3f;
 import javax.vecmath.Vector3f;
 
 /**
@@ -18,26 +22,35 @@ import javax.vecmath.Vector3f;
  * @author henry
  */
 public class Body implements Runnable{
-    public static final double K = 8.987551787E29;//supposed to be E9
+    public static final double K = 8.987551787E9;//supposed to be E9
     public static final double ELECTRON_CHARGE = -1.602176487E-19;
     public static final double PROTON_CHARGE = 1.602176487E-19;
+    public static final double ELECTRON_MASS = 1;
+    public static final double PROTON_MASS = 1E-20;
     protected Vector3f position;
     protected Vector3f velocity;
+    protected float mass;
     protected float radius;
     protected Transform3D t3d;
     protected TransformGroup group;
     protected float charge;
     protected LinkedList<Body> bodies;
-    public Body(Vector3f p, Vector3f v, float r, float c, BranchGroup master, LinkedList<Body> bodyList)
+    public Body(Vector3f p, Vector3f v, float r, float c, float m, Color3f color, BranchGroup master, LinkedList<Body> bodyList)
     {
         position = p;
+        mass = m;
         velocity = v;
         radius = r;
         charge = c;
         bodies = bodyList;
         bodies.add(this);
         BranchGroup bg = new BranchGroup();
-        bg.addChild(new Sphere(radius));
+        Sphere sph = new Sphere(radius);
+        Appearance a = sph.getAppearance();
+        a.getMaterial().setEmissiveColor(color);
+        sph.setAppearance(a);
+        
+        bg.addChild(sph);
         t3d = new Transform3D();
         t3d.setTranslation(position);
         group = new TransformGroup(t3d);
@@ -68,7 +81,11 @@ public class Body implements Runnable{
             Vector3f force = new Vector3f((float)(getCharge(p.length())*b.getCharge(p.length())*K*p.x/Math.pow(p.length(),3)),
                                         (float)(getCharge(p.length())*b.getCharge(p.length())*K*p.y/Math.pow(p.length(),3)),
                                         (float)(getCharge(p.length())*b.getCharge(p.length())*K*p.z/Math.pow(p.length(),3)));
-            velocity.add(force);
+            Vector3f accel = new Vector3f();
+                        System.out.println(force + " " + accel);
+            accel.scale(1/mass, force);
+            System.out.println(force + " " + accel);
+            velocity.add(accel);
             }
         }
     }
@@ -87,6 +104,9 @@ public class Body implements Runnable{
                 velocity.y = -velocity.y;
             if(Math.abs(position.z)>.5)
                 velocity.z = -velocity.z;
+          /*  velocity.x*=.9999f;
+            velocity.y*=.9999f;
+            velocity.z*=.9999f;*/
            applyForce();
             t3d.setTranslation(position);
             group.setTransform(t3d);

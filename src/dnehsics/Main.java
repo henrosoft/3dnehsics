@@ -69,31 +69,53 @@ public class Main extends Applet {
        /* new Body(new Vector3f(0,0.01f,.3f), new Vector3f(.0f,0,-.0003f),.02f,(float)Body.ELECTRON_CHARGE*1E10f,objRoot,bodies);
         new Body(new Vector3f(0,-.01f,-.3f), new Vector3f(.0f,.00f,.0003f),.02f,(float)Body.ELECTRON_CHARGE*1E10f,objRoot,bodies);*/
         
- /*       new Atom(new Vector3f(0,0.01f,.3f), new Vector3f(.0f,0,-.0003f),.02f,2,1,objRoot,bodies);
-        new Atom(new Vector3f(0,-.01f,-.3f), new Vector3f(.0f,.00f,.0003f),.02f,0,1,objRoot,bodies);*/
-        int count = 0;
-        for(double i = -.3; i<=.3; i+=.05)
+        new Atom(new Vector3f(0,0.01f,.3f), new Vector3f(.0f,0,-.0009f),.02f,2,1,(float)Body.ELECTRON_MASS,new Color3f(0,0,0),objRoot,bodies);
+        new Atom(new Vector3f(0,-.01f,-.3f), new Vector3f(.0f,.00f,.0009f),.02f,2,1,(float)Body.ELECTRON_MASS,new Color3f(0,0,0),objRoot,bodies);
+    /*    int count = 0;
+        for(double i = -.3; i<=.3; i+=.1)
             if(count%2 == 0)
             {
-                new Atom(new Vector3f(0,0.3f,(float)i), new Vector3f(.0f,0,0),.02f,2,1,objRoot,bodies);
+                new Atom(new Vector3f(0,0.03f,(float)i), new Vector3f(.0f,0,0),.02f,18,17,new Color3f(0,0,0),objRoot,bodies);
                 count++;
             }
             else
             {
-                new Atom(new Vector3f(0,0.3f,(float)i), new Vector3f(.0f,0,0),.02f,0,1,objRoot,bodies);
+                new Atom(new Vector3f(0,0.03f,(float)i), new Vector3f(.0f,0,0),.02f,8,11,new Color3f(0,255,0),objRoot,bodies);
                 count++;
             }
-        for(double i = -.3; i<=.3; i+=.05)
-            if(count%2 == 0)
+        for(double i = -.3; i<=.3; i+=.1)
+            if(count%2 == 1)
             {
-                new Atom(new Vector3f(0,-0.3f,(float)i), new Vector3f(.0f,0,0),.02f,2,1,objRoot,bodies);
+                new Atom(new Vector3f(0,-0.03f,(float)i), new Vector3f(.0f,0,0),.02f,18,17,new Color3f(0,0,0),objRoot,bodies);
                 count++;
             }
             else
             {
-                new Atom(new Vector3f(0,-0.3f,(float)i), new Vector3f(.0f,0,0),.02f,0,1,objRoot,bodies);
+                new Atom(new Vector3f(0,-0.03f,(float)i), new Vector3f(.0f,0,0),.02f,10,11,new Color3f(255,0,0),objRoot,bodies);
                 count++;
             }
+        /*for(double i = -.3; i<=.3; i+=.1)
+            if(count%2 == 0)
+            {
+                new Atom(new Vector3f(.03f,0.03f,(float)i), new Vector3f(.0f,0,0),.02f,18,17,new Color3f(0,0,0),objRoot,bodies);
+                count++;
+            }
+            else
+            {
+                new Atom(new Vector3f(.03f,0.03f,(float)i), new Vector3f(.0f,0,0),.02f,10,11,new Color3f(255,0,0),objRoot,bodies);
+                count++;
+            }
+        for(double i = -.3; i<=.3; i+=.1)
+            if(count%2 == 1)
+            {
+                new Atom(new Vector3f(.03f,-0.03f,(float)i), new Vector3f(.0f,0,0),.02f,18,17,new Color3f(0,0,0),objRoot,bodies);
+                count++;
+            }
+            else
+            {
+                new Atom(new Vector3f(.03f,-0.03f,(float)i), new Vector3f(.0f,0,0),.02f,10,11,new Color3f(255,0,0),objRoot,bodies);
+                count++;
+            }*/
 
         Appearance a = new Appearance();
         a.setTransparencyAttributes(new TransparencyAttributes(TransparencyAttributes.NICEST,.70f));
