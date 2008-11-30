@@ -5,13 +5,19 @@
 
 package dnehsics;
 
-import com.sun.j3d.utils.geometry.Sphere;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
+
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
+
 import javax.vecmath.Vector3f;
+
+import com.sun.j3d.utils.geometry.Sphere;
 
 /**
  *
@@ -27,8 +33,17 @@ public class Body implements Runnable{
     protected Transform3D t3d;
     protected TransformGroup group;
     protected float charge;
-    protected LinkedList<Body> bodies;
-    public Body(Vector3f p, Vector3f v, float r, float c, BranchGroup master, LinkedList<Body> bodyList)
+    protected List<Body> bodies;
+
+	static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(
+		Runtime.getRuntime().availableProcessors()
+	);
+
+	static void schedule(Runnable command, long ms) {
+		executor.scheduleAtFixedRate(command, 0, ms, TimeUnit.MILLISECONDS);
+	}
+
+    public Body(Vector3f p, Vector3f v, float r, float c, BranchGroup master, List<Body> bodyList)
     {
         position = p;
         velocity = v;
@@ -44,8 +59,7 @@ public class Body implements Runnable{
         group.addChild(bg);
         group.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         master.addChild(group);
-        Thread t = new Thread(this);
-        t.start();
+		schedule(this, 10);
     }
     public TransformGroup getGroup()
     {
@@ -73,23 +87,15 @@ public class Body implements Runnable{
         }
     }
     public void run() {
-        while(true)
-        {
-            try{Thread.sleep(10);}
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-            position.add(velocity);
-            if(Math.abs(position.x)>.5)
-                velocity.x = -velocity.x;
-            if(Math.abs(position.y)>.5)
-                velocity.y = -velocity.y;
-            if(Math.abs(position.z)>.5)
-                velocity.z = -velocity.z;
-           applyForce();
-            t3d.setTranslation(position);
-            group.setTransform(t3d);
-        }
+		position.add(velocity);
+		if(Math.abs(position.x)>.5)
+			velocity.x = -velocity.x;
+		if(Math.abs(position.y)>.5)
+			velocity.y = -velocity.y;
+		if(Math.abs(position.z)>.5)
+			velocity.z = -velocity.z;
+		applyForce();
+		t3d.setTranslation(position);
+		group.setTransform(t3d);
     }
 }

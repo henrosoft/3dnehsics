@@ -5,15 +5,15 @@
 
 package dnehsics;
 
-import com.sun.j3d.utils.applet.MainFrame;
-import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
-import com.sun.j3d.utils.geometry.ColorCube;
-import com.sun.j3d.utils.universe.SimpleUniverse;
-import com.sun.j3d.utils.universe.ViewingPlatform;
 import java.applet.Applet;
+
 import java.awt.BorderLayout;
 import java.awt.GraphicsConfiguration;
-import java.util.LinkedList;
+
+import java.util.List;
+
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
@@ -27,9 +27,19 @@ import javax.media.j3d.LineAttributes;
 import javax.media.j3d.PolygonAttributes;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.TransparencyAttributes;
+
 import javax.vecmath.Color3f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3f;
+
+import com.sun.j3d.utils.applet.MainFrame;
+
+import com.sun.j3d.utils.behaviors.vp.OrbitBehavior;
+
+import com.sun.j3d.utils.geometry.ColorCube;
+
+import com.sun.j3d.utils.universe.SimpleUniverse;
+import com.sun.j3d.utils.universe.ViewingPlatform;
 
 /**
  *
@@ -38,7 +48,7 @@ import javax.vecmath.Vector3f;
 public class Main extends Applet {
 	public static final long serialVersionUID = 293841832419834234L;
     private static BoundingSphere myBounds = new BoundingSphere();
-    private LinkedList<Body> bodies = new LinkedList<Body>();
+    private List<Body> bodies = new CopyOnWriteArrayList<Body>();
     public Main() {
         setLayout(new BorderLayout());
         GraphicsConfiguration config =

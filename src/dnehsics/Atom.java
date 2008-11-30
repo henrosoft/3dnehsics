@@ -5,7 +5,7 @@
 
 package dnehsics;
 
-import java.util.LinkedList;
+import java.util.List;
 import javax.media.j3d.BranchGroup;
 import javax.vecmath.Vector3f;
 
@@ -18,12 +18,11 @@ import javax.vecmath.Vector3f;
 public class Atom extends Body{
     protected int numElectrons;
     protected int numProtons;
-    public Atom(Vector3f p, Vector3f v, float r, int nume, int nump, BranchGroup master, LinkedList<Body> bodyList)
+    public Atom(Vector3f p, Vector3f v, float r, int nume, int nump, BranchGroup master, List<Body> bodyList)
     {
         super(p,v,r,(float)(nump*Body.PROTON_CHARGE+nume*Body.ELECTRON_CHARGE),master,bodyList);
         numElectrons = nume;
         numProtons = nump;
-        System.out.println(getCharge(100));
     }
     public float getCharge(double d)
     {
