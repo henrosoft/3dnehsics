@@ -14,8 +14,8 @@ import javax.vecmath.Vector3f;
  *
  * @author henry
  */
-//Using equation for charge density: 2xe^(-x^2)
-//integral: -e^(-x^2)
+//Using equation for charge density: 4(x^3)e^(-x^4)
+//integral: -e^(-x^4)
 public class Atom extends Body{
     protected int numElectrons;
     protected int numProtons;

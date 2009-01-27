@@ -26,11 +26,12 @@ import com.sun.j3d.utils.geometry.Sphere;
  * @author henry
  */
 public class Body implements Runnable{
-    public static final double K = 8.987551787E9;//supposed to be E9
-    public static final double ELECTRON_CHARGE = -1.602176487E-19;
-    public static final double PROTON_CHARGE = 1.602176487E-19;
-    public static final double ELECTRON_MASS = 1;
-    public static final double PROTON_MASS = 1E-20;
+    public static final double K = 8.987551787E32;//supposed to be E9 //Coulombs Constant //Nm^2/C^2 - Newton meter squared per coulomb squared
+    public static final double ELECTRON_CHARGE = -1.602176487E-19; //Coubombs
+    public static final double PROTON_CHARGE = 1.602176487E-19; //Coulombs
+    public static final double ELECTRON_MASS = 9.10938215E-31; //Kilo Grams
+    public static final double PROTON_MASS = 1.672621636E-27; //Kilo Grams
+    public static final double UNIT_SIZE = 1E-9; //one java3d unit = one nanometer
     protected Vector3f position;
     protected Vector3f velocity;
     protected float mass;
@@ -93,9 +94,7 @@ public class Body implements Runnable{
                                         (float)(getCharge(p.length())*b.getCharge(p.length())*K*p.y/Math.pow(p.length(),3)),
                                         (float)(getCharge(p.length())*b.getCharge(p.length())*K*p.z/Math.pow(p.length(),3)));
             Vector3f accel = new Vector3f();
-                        System.out.println(force + " " + accel);
             accel.scale(1/mass, force);
-            System.out.println(force + " " + accel);
             velocity.add(accel);
             }
         }
@@ -109,12 +108,22 @@ public class Body implements Runnable{
                 e.printStackTrace();
             }*/
 		position.add(velocity);
-		if(Math.abs(position.x)>.5)
-			velocity.x = -velocity.x;
-		if(Math.abs(position.y)>.5)
-			velocity.y = -velocity.y;
-		if(Math.abs(position.z)>.5)
-			velocity.z = -velocity.z;
+		if(position.x>.5)
+			velocity.x = -Math.abs(velocity.x);
+		if(position.y>.5)
+			velocity.y = -Math.abs(velocity.y);
+		if(position.z>.5)
+			velocity.z = -Math.abs(velocity.z);
+                if(position.x<-.5)
+			velocity.x = Math.abs(velocity.x);
+		if(position.y<-.5)
+			velocity.y = Math.abs(velocity.y);
+		if(position.z<-.5)
+			velocity.z = Math.abs(velocity.z);
+                velocity.x *=.8;
+                velocity.y *=.8;
+                velocity.z *=.8;
+                
 		applyForce();
 		t3d.setTranslation(position);
 		group.setTransform(t3d);
